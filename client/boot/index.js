@@ -35,6 +35,7 @@ var config = require( 'config' ),
 	normalize = require( 'lib/route/normalize' ),
 	{ isLegacyRoute } = require( 'lib/route/legacy-routes' ),
 	user = require( 'lib/user' )(),
+	userSettings = require( 'lib/userSettings'),
 	receiveUser = require( 'state/users/actions' ).receiveUser,
 	setCurrentUserId = require( 'state/current-user/actions' ).setCurrentUserId,
 	setCurrentUserFlags = require( 'state/current-user/actions' ).setCurrentUserFlags,
@@ -152,7 +153,7 @@ function boot() {
 		localeSlug = user.get().localeSlug;
 		if ( localeSlug ) {
 			switchLocale( localeSlug );
-			localeVariants.init();
+			localeVariants.init( userSettings.getSetting( 'locale_variant' ) );
 		}
 	}
 	// Set the locale for the current user
@@ -160,7 +161,7 @@ function boot() {
 		localeSlug = user.get().localeSlug;
 		if ( localeSlug ) {
 			switchLocale( localeSlug );
-			localeVariants.init();
+			localeVariants.init( userSettings.getSetting( 'locale_variant' ) );
 		}
 	} );
 
